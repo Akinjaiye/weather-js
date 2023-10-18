@@ -1,8 +1,13 @@
 const apiKey = "43b7705f9e55282b3f827d209fbf5d9f";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=lagos";
 
-async function checkWeather(){
-    const response = await fetch(apiUrl + `&appid=${apiKey}`);
+const searchBox = document.querySelector(".search input");
+
+const searchBtn = document.querySelector(".search button");
+
+
+async function checkWeather(city){
+    const response = await fetch(apiUrl + city +`&appid=${apiKey}`);
     var data = await response.json();
 
     console.log(data);
@@ -13,4 +18,7 @@ async function checkWeather(){
     document.querySelector(".wind").innerHTML = data.wind.speed + " km/hr";
 }
 
-checkWeather();
+searchBtn.addEventListener("click", () => {
+    checkWeather(searchBox.value);
+})
+
